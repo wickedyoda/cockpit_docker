@@ -12,6 +12,23 @@ EXPOSE 9090
 apt-get update
 apt-get upgrade -y
 
+# Installing cockpit and plugins
+apt-get install cockpit -y
+
+# Installing optional plugins
+apt-get install cockpit-storaged \
+cockpit-networkmanager \
+cockpit-packagekit \
+cockpit-ostree \
+cockpit-machines \
+cockpit-podman \
+cockpit-kdump \ 
+cockpit-certificates \
+cockpit-sosreport \
+cockpit-pcp \
+cockpit-sensors \
+cockpit-tailscale 
+
 # (Optional) Add your custom configurations or scripts
 # COPY ./custom-config /app/custom-config
 
