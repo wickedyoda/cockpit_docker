@@ -4,6 +4,9 @@ FROM debian:latest
 # Set the working directory
 WORKDIR /app
 
+# Expose port 9090
+EXPOSE 9090
+
 # (Optional) Update package lists and install any additional packages
 # RUN apt-get update && apt-get install -y <package_name>
 apt-get update
