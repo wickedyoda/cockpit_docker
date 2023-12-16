@@ -9,28 +9,23 @@ EXPOSE 9090
 
 # (Optional) Update package lists and install any additional packages
 # RUN apt-get update && apt-get install -y <package_name>
-apt-get update
-apt-get upgrade -y
+RUN apt-get update
+RUN apt-get upgrade -y
 
 # Installing cockpit and plugins
-apt-get install cockpit -y
+RUN apt-get install cockpit -y
 
 # Installing optional plugins
-apt-get install cockpit-storaged \
+RUN apt-get install cockpit-storaged \
 cockpit-networkmanager \
 cockpit-packagekit \
-cockpit-ostree \
 cockpit-machines \
 cockpit-podman \
-cockpit-kdump \ 
-cockpit-certificates \
 cockpit-sosreport \
-cockpit-pcp \
-cockpit-sensors \
-cockpit-tailscale 
+cockpit-pcp
 
 # (Optional) Add your custom configurations or scripts
 # COPY ./custom-config /app/custom-config
 
 # Command to run when the container starts
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
