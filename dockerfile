@@ -1,5 +1,5 @@
 # Use the official Debian base image
-FROM debian:latest
+FROM debian:stable-slim
 
 # Set the working directory
 WORKDIR /app
@@ -7,25 +7,18 @@ WORKDIR /app
 # Expose port 9090
 EXPOSE 9090
 
-# (Optional) Update package lists and install any additional packages
-# RUN apt-get update && apt-get install -y <package_name>
-RUN apt-get update
-RUN apt-get upgrade -y
+# Adduser
+# RUN adduser traver
 
-# Installing cockpit and plugins
-RUN apt-get install cockpit -y
 
-# Installing optional plugins
-RUN apt-get install cockpit-storaged \
-cockpit-networkmanager \
-cockpit-packagekit \
-cockpit-machines \
-cockpit-podman \
-cockpit-sosreport \
-cockpit-pcp
-
-# (Optional) Add your custom configurations or scripts
-# COPY ./custom-config /app/custom-config
-
-# Command to run when the container starts
-# CMD ["/bin/bash"]
+# Update package lists, upgrade, and install packages
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y cockpit \
+                       cockpit-storaged \
+                       cockpit-networkmanager \
+                       cockpit-packagekit \
+                       cockpit-machines \
+                       cockpit-podman \
+                       cockpit-sosreport \
+                       cockpit-pcp
