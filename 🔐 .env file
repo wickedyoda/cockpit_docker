@@ -1,0 +1,3 @@
+# Cockpit user and password
+COCKPIT_USER=traver
+COCKPIT_PASSWORD=changeme
