@@ -28,7 +28,7 @@ The provided Dockerfile installs Cockpit on top of the Debian **stable-slim** ba
 A dynamic user is created at build time with sudo privileges. The username and password are set via environment variables (`COCKPIT_USER` and `COCKPIT_PASSWORD`). These can be provided in a `.env` file which looks like:
 
 ```env
-COCKPIT_USER=traver
+COCKPIT_USER=enter_name
 COCKPIT_PASSWORD=changeme
 ```
 
