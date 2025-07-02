@@ -13,7 +13,8 @@ WORKDIR /app
 EXPOSE 9090
 
 # Install Cockpit and required packages
-RUN apt-get update && \
+RUN echo '#!/bin/sh\nexit 101' > /usr/sbin/policy-rc.d && chmod +x /usr/sbin/policy-rc.d && \
+    apt-get update && \
     apt-get install -y curl gnupg systemd systemd-sysv dbus sudo passwd \
                        cockpit \
                        cockpit-storaged \
@@ -23,6 +24,7 @@ RUN apt-get update && \
                        cockpit-podman \
                        cockpit-sosreport \
                        cockpit-pcp && \
+    rm /usr/sbin/policy-rc.d && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

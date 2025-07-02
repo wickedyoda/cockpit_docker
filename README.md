@@ -40,6 +40,10 @@ Run the following command from the repository root. The Dockerfile is named `doc
 docker build -t my-cockpit -f dockerfile .
 ```
 
+The Docker build temporarily installs a `policy-rc.d` script to prevent services
+like `pcp` from starting during installation. This avoids errors when building
+without systemd running and is cleaned up before the image is finalized.
+
 You can customize the username and password at build time by passing build arguments:
 
 ```bash
