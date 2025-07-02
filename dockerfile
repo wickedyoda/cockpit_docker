@@ -14,7 +14,6 @@ EXPOSE 9090
 
 # Install Cockpit and required packages
 RUN apt-get update && \
-    apt-get upgrade -y && \
     apt-get install -y curl gnupg systemd systemd-sysv dbus sudo passwd \
                        cockpit \
                        cockpit-storaged \

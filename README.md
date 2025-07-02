@@ -1,16 +1,17 @@
 # Cockpit Docker Image
 
-This repository contains a Dockerfile for running **Cockpit**, the interactive server administration interface, inside a container.
+This repository contains a Dockerfile for running **Cockpit** inside a container. Cockpit is an interactive web-based interface for administering GNU/Linux servers. It presents a friendly dashboard where you can inspect the system's health and make changes in real time.
 
-Cockpit provides a lightweight web-based user interface for managing GNU/Linux systems. It allows administrators to perform common tasks such as:
+Cockpit aims to "simplify complex tasks" by exposing the same controls that you would normally operate on the command line. Typical tasks include:
 
 * Monitoring system resources and inspecting logs
 * Managing services and containers
 * Configuring storage and network settings
 * Administering virtual machines
 * Installing software updates
+* Viewing and diagnosing system logs
 
-The upstream project can be found at [cockpit-project/cockpit](https://github.com/cockpit-project/cockpit). Cockpit runs in a real Linux login session and integrates smoothly with command line tools. Actions taken in the browser are immediately visible in the terminal and vice versa.
+The upstream project is hosted at [cockpit-project/cockpit](https://github.com/cockpit-project/cockpit). Cockpit runs in a real Linux login session and integrates smoothly with command line tools. Any action taken in the browser is immediately visible on the terminal, and vice versa.
 
 ## Image contents
 
@@ -37,6 +38,15 @@ Run the following command from the repository root. The Dockerfile is named `doc
 
 ```bash
 docker build -t my-cockpit -f dockerfile .
+```
+
+You can customize the username and password at build time by passing build arguments:
+
+```bash
+docker build -t my-cockpit \
+  --build-arg COCKPIT_USER=alice \
+  --build-arg COCKPIT_PASSWORD=secret \
+  -f dockerfile .
 ```
 
 ## Running the container
