@@ -1,0 +1,94 @@
+Create workfile for auto-build and push
+Jul 1
+wickedyoda/cockpit_docker
+main
++41
+-0
+
+Archive
+
+Share
+
+Update branch
+
+
+Create a workfile that will automatically build on and push to main, or manual run. 
+
+Want it to create the docker image, and then publish it to github packages. 
+
+Tag with the current date in mm.dd.yyyy format and also tag the more recent one with :latest
+Copy
+Summary
+
+Added a GitHub Actions workflow that builds the Docker image whenever changes are pushed to the main branch or the workflow is manually triggered. It logs in to the GitHub Container Registry, tags the image with the current date in “mm.dd.yyyy” format and with “latest,” and pushes both tags
+
+Testing
+
+✅ git status --short
+
+
+File (1)
+Wanted it tagged with the date, thats correct. But I wanted the newest tagged with :latest
+Copy
+Summary
+
+Updated the GitHub Actions workflow to build the Docker image, generate a date-based tag, and push both the date tag and latest to GitHub Packages
+
+Testing
+
+✅ git status --short
+
+
+File (1)
+
+.github/workflows/docker-build-publish.yml
+New
+
+
+Diff
+Logs
+.github/workflows/docker-build-publish.yml
+New
++41
+-0
+
+name: Build and Publish Docker image
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare variables
+        id: vars
+        run: |
+          echo "DATE_TAG=$(date +'%m.%d.%Y')" >> "$GITHUB_OUTPUT"
+          echo "IMAGE=ghcr.io/${{ github.repository }}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: dockerfile
+          push: true
+          tags: |
+            ${{ steps.vars.outputs.IMAGE }}:${{ steps.vars.outputs.DATE_TAG }}
+            ${{ steps.vars.outputs.IMAGE }}:latest
